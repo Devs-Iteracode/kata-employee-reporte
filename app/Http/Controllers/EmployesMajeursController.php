@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employe;
 use Illuminate\Http\Request;
 
 class EmployesMajeursController extends Controller
@@ -9,8 +10,8 @@ class EmployesMajeursController extends Controller
     public function liste() {
         return view('employes-majeurs', [
             'employes' => [
-                'Agent Smith',
-                'Neo'
+                new Employe(['nom' => 'Agent Smith']),
+                new Employe(['nom' => 'Neo'])
             ]
         ]);
     }
