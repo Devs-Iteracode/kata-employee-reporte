@@ -15,4 +15,11 @@ class EmployesMajeursTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function test_index_display_a_list(): void
+    {
+        $response = $this->get('/employes-majeurs');
+
+        $response->assertSee('Liste des employés');
+    }
 }
