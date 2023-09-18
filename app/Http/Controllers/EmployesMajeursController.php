@@ -8,7 +8,10 @@ class EmployesMajeursController extends Controller
 {
     public function liste() {
         return view('employes-majeurs', [
-            'employe' => 'Agent Smith'
+            'employes' => [
+                'Agent Smith',
+                'Neo'
+            ]
         ]);
     }
 }
