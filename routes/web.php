@@ -16,3 +16,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/employes-majeurs', [\App\Http\Controllers\EmployesMajeursController::class, 'liste']);
