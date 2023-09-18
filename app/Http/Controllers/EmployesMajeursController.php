@@ -9,10 +9,7 @@ class EmployesMajeursController extends Controller
 {
     public function liste() {
         return view('employes-majeurs', [
-            'employes' => [
-                new Employe(['nom' => 'Agent Smith']),
-                new Employe(['nom' => 'Neo'])
-            ]
+            'employes' => Employe::all()
         ]);
     }
 }
