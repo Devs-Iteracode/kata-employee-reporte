@@ -22,4 +22,10 @@ class EmployesMajeursTest extends TestCase
 
         $response->assertSee('Liste des employés');
     }
+
+    public function test_index_list_show_an_employee(): void
+    {
+        $response = $this->get('/employes-majeurs');
+        $response->assertSee('Agent Smith');
+    }
 }

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 class EmployesMajeursController extends Controller
 {
     public function liste() {
-        return view('employes-majeurs');
+        return view('employes-majeurs', [
+            'employe' => 'Agent Smith'
+        ]);
     }
 }
