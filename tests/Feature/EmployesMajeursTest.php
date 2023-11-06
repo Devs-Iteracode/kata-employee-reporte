@@ -27,10 +27,10 @@ class EmployesMajeursTest extends TestCase
 
     public function test_index_list_show_two_employes(): void
     {
-        Employe::create([
+        Employe::factory()->create([
             'nom' => 'Agent Smith'
         ]);
-        Employe::create([
+        Employe::factory()->create([
             'nom' => 'Neo'
         ]);
         $response = $this->get('/employes-majeurs');
