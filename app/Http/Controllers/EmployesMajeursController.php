@@ -10,7 +10,7 @@ class EmployesMajeursController extends Controller
 {
     public function liste(): View {
         return view('employes-majeurs', [
-            'employes' => Employe::all()
+            'employes' => Employe::where('age', '>', 17)->get()
         ]);
     }
 }

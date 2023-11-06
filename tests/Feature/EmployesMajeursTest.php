@@ -25,7 +25,7 @@ class EmployesMajeursTest extends TestCase
         $response->assertSee('Liste des employés');
     }
 
-    public function test_index_list_show_two_employes(): void
+    public function test_index_list_show_employes_at_least_18(): void
     {
         Employe::factory()->create([
             'nom' => 'Agent Smith',
@@ -35,8 +35,13 @@ class EmployesMajeursTest extends TestCase
             'nom' => 'Neo',
             'age' => 16,
         ]);
+        Employe::factory()->create([
+            'nom' => 'Trinity',
+            'age' => 18,
+        ]);
         $response = $this->get('/employes-majeurs');
         $response->assertSee(['Agent Smith', 'Age : 42']);
-        $response->assertSee(['Neo', 'Age : 16']);
+        $response->assertDontSee(['Neo', 'Age : 16']);
+        $response->assertSee(['Trinity', 'Age : 18']);
     }
 }
