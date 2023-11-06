@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,4 +13,9 @@ class Employe extends Model
         'nom',
         'age'
     ];
+
+    public function scopeAtLeast18(Builder $query): void
+    {
+        $query->where('age', '>=', 18);
+    }
 }
