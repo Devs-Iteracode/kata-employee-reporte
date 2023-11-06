@@ -28,13 +28,15 @@ class EmployesMajeursTest extends TestCase
     public function test_index_list_show_two_employes(): void
     {
         Employe::factory()->create([
-            'nom' => 'Agent Smith'
+            'nom' => 'Agent Smith',
+            'age' => 42,
         ]);
         Employe::factory()->create([
-            'nom' => 'Neo'
+            'nom' => 'Neo',
+            'age' => 16,
         ]);
         $response = $this->get('/employes-majeurs');
-        $response->assertSee('Agent Smith');
-        $response->assertSee('Neo');
+        $response->assertSee(['Agent Smith', 'Age : 42']);
+        $response->assertSee(['Neo', 'Age : 16']);
     }
 }
