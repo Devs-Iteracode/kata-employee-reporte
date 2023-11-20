@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Employe;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -66,5 +67,27 @@ class EmployesMajeursTest extends TestCase
             "Smith",
             "Trinity",
         ]);
+    }
+
+    public function test_index_list_variable_is_ordered(): void
+    {
+        Employe::factory()->create([
+            'nom' => 'Trinity',
+            'age' => 18,
+        ]);
+        Employe::factory()->create([
+            'nom' => 'Smith',
+            'age' => 42,
+        ]);
+        Employe::factory()->create([
+            'nom' => 'Neo',
+            'age' => 26,
+        ]);
+
+        $response = $this->get('/employes-majeurs');
+        $this->assertEquals(
+            ['Neo', 'Smith', 'Trinity'],
+            $response->viewData('employes')->pluck('nom')->toArray(),
+        );
     }
 }
