@@ -10,7 +10,7 @@ class EmployesMajeursController extends Controller
 {
     public function liste(): View {
         return view('employes-majeurs', [
-            'employes' => Employe::getEmployesMajeursParOrdreAlphabetique(),
+            'employes' => Employe::getEmployesMajeursParOrdreAlphabetiqueDesc(),
         ]);
     }
 }

@@ -46,7 +46,7 @@ class EmployesMajeursTest extends TestCase
         $response->assertSee(['TRINITY', 'Age : 18']);
     }
 
-    public function test_index_list_is_ordered(): void
+    public function test_index_list_is_ordered_desc(): void
     {
         Employe::factory()->create([
             'nom' => 'Trinity',
@@ -63,13 +63,13 @@ class EmployesMajeursTest extends TestCase
 
         $response = $this->get('/employes-majeurs');
         $response->assertSeeTextInOrder([
-            "NEO",
-            "SMITH",
             "TRINITY",
+            "SMITH",
+            "NEO",
         ]);
     }
 
-    public function test_index_list_variable_is_ordered(): void
+    public function test_index_list_variable_is_ordered_desc(): void
     {
         Employe::factory()->create([
             'nom' => 'Trinity',
@@ -86,12 +86,12 @@ class EmployesMajeursTest extends TestCase
 
         $response = $this->get('/employes-majeurs');
         $this->assertEquals(
-            ['Neo', 'Smith', 'Trinity'],
+            ['Trinity', 'Smith', 'Neo'],
             $response->viewData('employes')->pluck('nom')->toArray(),
         );
     }
 
-    public function test_get_employes_majeurs_par_ordre_alphabetique(): void
+    public function test_get_employes_majeurs_par_ordre_alphabetique_desc(): void
     {
         Employe::factory()->create([
             'nom' => 'Trinity',
@@ -106,10 +106,10 @@ class EmployesMajeursTest extends TestCase
             'age' => 26,
         ]);
 
-        $employes = Employe::getEmployesMajeursParOrdreAlphabetique();
+        $employes = Employe::getEmployesMajeursParOrdreAlphabetiqueDesc();
 
         $this->assertEquals(
-            ['Neo', 'Smith', 'Trinity'],
+            ['Trinity', 'Smith', 'Neo'],
             $employes->pluck('nom')->toArray(),
         );
     }
