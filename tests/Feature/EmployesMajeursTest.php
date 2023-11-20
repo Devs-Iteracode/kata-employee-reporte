@@ -6,6 +6,8 @@ use App\Models\Employe;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Date;
 use Tests\TestCase;
 
 class EmployesMajeursTest extends TestCase
@@ -30,18 +32,18 @@ class EmployesMajeursTest extends TestCase
     {
         Employe::factory()->create([
             'nom' => 'Agent Smith',
-            'age' => 42,
+            'date_de_naissance' => Carbon::create(1980, 01,01),
         ]);
         Employe::factory()->create([
             'nom' => 'Neo',
-            'age' => 16,
+            'date_de_naissance' => Carbon::create(2007, 01,01),
         ]);
         Employe::factory()->create([
             'nom' => 'Trinity',
-            'age' => 18,
+            'date_de_naissance' => Carbon::create(2005, 01,01),
         ]);
         $response = $this->get('/employes-majeurs');
-        $response->assertSee(['AGENT SMITH', 'Age : 42']);
+        $response->assertSee(['AGENT SMITH', 'Age : 43']);
         $response->assertDontSee(['NEO', 'Age : 16']);
         $response->assertSee(['TRINITY', 'Age : 18']);
     }
@@ -49,16 +51,16 @@ class EmployesMajeursTest extends TestCase
     public function test_index_list_is_ordered_desc(): void
     {
         Employe::factory()->create([
-            'nom' => 'Trinity',
-            'age' => 18,
-        ]);
-        Employe::factory()->create([
             'nom' => 'Smith',
-            'age' => 42,
+            'date_de_naissance' => Carbon::create(1980, 01,01),
         ]);
         Employe::factory()->create([
             'nom' => 'Neo',
-            'age' => 26,
+            'date_de_naissance' => Carbon::create(2000, 01,01),
+        ]);
+        Employe::factory()->create([
+            'nom' => 'Trinity',
+            'date_de_naissance' => Carbon::create(2005, 01,01),
         ]);
 
         $response = $this->get('/employes-majeurs');
@@ -72,16 +74,16 @@ class EmployesMajeursTest extends TestCase
     public function test_index_list_variable_is_ordered_desc(): void
     {
         Employe::factory()->create([
-            'nom' => 'Trinity',
-            'age' => 18,
-        ]);
-        Employe::factory()->create([
             'nom' => 'Smith',
-            'age' => 42,
+            'date_de_naissance' => Carbon::create(1980, 01,01),
         ]);
         Employe::factory()->create([
             'nom' => 'Neo',
-            'age' => 26,
+            'date_de_naissance' => Carbon::create(2000, 01,01),
+        ]);
+        Employe::factory()->create([
+            'nom' => 'Trinity',
+            'date_de_naissance' => Carbon::create(2005, 01,01),
         ]);
 
         $response = $this->get('/employes-majeurs');
@@ -94,16 +96,16 @@ class EmployesMajeursTest extends TestCase
     public function test_get_employes_majeurs_par_ordre_alphabetique_desc(): void
     {
         Employe::factory()->create([
-            'nom' => 'Trinity',
-            'age' => 18,
-        ]);
-        Employe::factory()->create([
             'nom' => 'Smith',
-            'age' => 42,
+            'date_de_naissance' => Carbon::create(1980, 01,01),
         ]);
         Employe::factory()->create([
             'nom' => 'Neo',
-            'age' => 26,
+            'date_de_naissance' => Carbon::create(2000, 01,01),
+        ]);
+        Employe::factory()->create([
+            'nom' => 'Trinity',
+            'date_de_naissance' => Carbon::create(2005, 01,01),
         ]);
 
         $employes = Employe::getEmployesMajeursParOrdreAlphabetiqueDesc();
@@ -116,13 +118,22 @@ class EmployesMajeursTest extends TestCase
 
     public function test_should_see_employes_name_in_uppercase(): void
     {
-        Employe::factory()->create(
-            [
-                'nom' => 'Neo',
-                'age' => 23
-            ]
-        );
+        Employe::factory()->create([
+            'nom' => 'Neo',
+            'date_de_naissance' => Carbon::create(2000, 01,01),
+        ]);
+
         $response = $this->get('/employes-majeurs');
         $response->assertSee('NEO');
+    }
+
+    public function test_get_age(): void
+    {
+        $employe = Employe::factory()->create([
+            'nom' => 'Smith',
+            'date_de_naissance' => Carbon::create(1980, 01,01),
+        ]);
+
+        $this->assertEquals(43, $employe->getAge());
     }
 }

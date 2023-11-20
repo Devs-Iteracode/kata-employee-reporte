@@ -3,7 +3,7 @@
 
     <ul>
         @foreach ($employes as $employe)
-            <li>{{strtoupper($employe->nom)}} Age : {{$employe->age}}</li>
+            <li>{{strtoupper($employe->nom)}} Age : {{$employe->getAge()}}</li>
         @endforeach
     </ul>
 </div>
