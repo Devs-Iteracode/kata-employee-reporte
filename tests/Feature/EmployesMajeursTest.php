@@ -44,4 +44,27 @@ class EmployesMajeursTest extends TestCase
         $response->assertDontSee(['Neo', 'Age : 16']);
         $response->assertSee(['Trinity', 'Age : 18']);
     }
+
+    public function test_index_list_is_ordered(): void
+    {
+        Employe::factory()->create([
+            'nom' => 'Trinity',
+            'age' => 18,
+        ]);
+        Employe::factory()->create([
+            'nom' => 'Smith',
+            'age' => 42,
+        ]);
+        Employe::factory()->create([
+            'nom' => 'Neo',
+            'age' => 26,
+        ]);
+
+        $response = $this->get('/employes-majeurs');
+        $response->assertSeeTextInOrder([
+            "Neo",
+            "Smith",
+            "Trinity",
+        ]);
+    }
 }
