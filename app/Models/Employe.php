@@ -18,4 +18,9 @@ class Employe extends Model
     {
         $query->where('age', '>=', 18);
     }
+
+    public static function getEmployesMajeursParOrdreAlphabetique()
+    {
+        return Employe::atLeast18()->orderBy('nom')->get();
+    }
 }

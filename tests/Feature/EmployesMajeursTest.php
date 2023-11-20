@@ -90,4 +90,27 @@ class EmployesMajeursTest extends TestCase
             $response->viewData('employes')->pluck('nom')->toArray(),
         );
     }
+
+    public function test_get_employes_majeurs_par_ordre_alphabetique(): void
+    {
+        Employe::factory()->create([
+            'nom' => 'Trinity',
+            'age' => 18,
+        ]);
+        Employe::factory()->create([
+            'nom' => 'Smith',
+            'age' => 42,
+        ]);
+        Employe::factory()->create([
+            'nom' => 'Neo',
+            'age' => 26,
+        ]);
+
+        $employes = Employe::getEmployesMajeursParOrdreAlphabetique();
+
+        $this->assertEquals(
+            ['Neo', 'Smith', 'Trinity'],
+            $employes->pluck('nom')->toArray(),
+        );
+    }
 }
