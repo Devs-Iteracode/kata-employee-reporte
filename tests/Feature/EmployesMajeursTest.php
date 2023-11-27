@@ -136,4 +136,17 @@ class EmployesMajeursTest extends TestCase
 
         $this->assertEquals(43, $employe->getAge());
     }
+
+    public function test_freezetime_get_age(): void
+    {
+        $employe = Employe::factory()->create([
+            'nom' => 'Smith',
+            'date_de_naissance' => Carbon::create(1980, 05, 25),
+        ]);
+
+        $this->travelTo(Carbon::create(2023, 11, 27));
+
+        $this->assertEquals(43, $employe->getAge());
+    }
+
 }
