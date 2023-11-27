@@ -2,8 +2,8 @@
 
 ## Installation
 ```bash
-git clone https://github.com/Devs-Iteracode/project-monitoring.git
-cd project-monitoring
+git clone https://github.com/Devs-Iteracode/kata-employee-reporte.git
+cd kata-employee-reporte
 
 # Installe les dépendances avec Composer (via une image Docker)
 docker run --rm \
@@ -31,9 +31,4 @@ docker run --rm \
 
 ```cmd
 ./vendor/bin/sail test
-```
-## Ajouter l'utilisateur Iteracode
-
-```cmd
-./vendor/bin/sail artisan db:seed --class=IteracodeUserSeeder
 ```
