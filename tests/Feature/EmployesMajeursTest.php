@@ -32,15 +32,15 @@ class EmployesMajeursTest extends TestCase
     {
         Employe::factory()->create([
             'nom' => 'Agent Smith',
-            'date_de_naissance' => Carbon::create(1980, 01,01),
+            'date_de_naissance' => Carbon::today()->subYears(43),
         ]);
         Employe::factory()->create([
             'nom' => 'Neo',
-            'date_de_naissance' => Carbon::create(2007, 01,01),
+            'date_de_naissance' => Carbon::today()->subYears(16),
         ]);
         Employe::factory()->create([
             'nom' => 'Trinity',
-            'date_de_naissance' => Carbon::create(2005, 01,01),
+            'date_de_naissance' => Carbon::today()->subYears(18),
         ]);
         $response = $this->get('/employes-majeurs');
         $response->assertSee(['AGENT SMITH', 'Age : 43']);
@@ -52,15 +52,15 @@ class EmployesMajeursTest extends TestCase
     {
         Employe::factory()->create([
             'nom' => 'Smith',
-            'date_de_naissance' => Carbon::create(1980, 01,01),
+            'date_de_naissance' => Carbon::today()->subYears(43),
         ]);
         Employe::factory()->create([
             'nom' => 'Neo',
-            'date_de_naissance' => Carbon::create(2000, 01,01),
+            'date_de_naissance' => Carbon::today()->subYears(23),
         ]);
         Employe::factory()->create([
             'nom' => 'Trinity',
-            'date_de_naissance' => Carbon::create(2005, 01,01),
+            'date_de_naissance' => Carbon::today()->subYears(18),
         ]);
 
         $response = $this->get('/employes-majeurs');
@@ -75,15 +75,15 @@ class EmployesMajeursTest extends TestCase
     {
         Employe::factory()->create([
             'nom' => 'Smith',
-            'date_de_naissance' => Carbon::create(1980, 01,01),
+            'date_de_naissance' => Carbon::today()->subYears(43),
         ]);
         Employe::factory()->create([
             'nom' => 'Neo',
-            'date_de_naissance' => Carbon::create(2000, 01,01),
+            'date_de_naissance' => Carbon::today()->subYears(23),
         ]);
         Employe::factory()->create([
             'nom' => 'Trinity',
-            'date_de_naissance' => Carbon::create(2005, 01,01),
+            'date_de_naissance' => Carbon::today()->subYears(18),
         ]);
 
         $response = $this->get('/employes-majeurs');
@@ -97,15 +97,15 @@ class EmployesMajeursTest extends TestCase
     {
         Employe::factory()->create([
             'nom' => 'Smith',
-            'date_de_naissance' => Carbon::create(1980, 01,01),
+            'date_de_naissance' => Carbon::today()->subYears(43),
         ]);
         Employe::factory()->create([
             'nom' => 'Neo',
-            'date_de_naissance' => Carbon::create(2000, 01,01),
+            'date_de_naissance' => Carbon::today()->subYears(23),
         ]);
         Employe::factory()->create([
             'nom' => 'Trinity',
-            'date_de_naissance' => Carbon::create(2005, 01,01),
+            'date_de_naissance' => Carbon::today()->subYears(18),
         ]);
 
         $employes = Employe::getEmployesMajeursParOrdreAlphabetiqueDesc();
@@ -120,7 +120,7 @@ class EmployesMajeursTest extends TestCase
     {
         Employe::factory()->create([
             'nom' => 'Neo',
-            'date_de_naissance' => Carbon::create(2000, 01,01),
+            'date_de_naissance' => Carbon::today()->subYears(23),
         ]);
 
         $response = $this->get('/employes-majeurs');
@@ -131,7 +131,7 @@ class EmployesMajeursTest extends TestCase
     {
         $employe = Employe::factory()->create([
             'nom' => 'Smith',
-            'date_de_naissance' => Carbon::create(1980, 01,01),
+            'date_de_naissance' => Carbon::today()->subYears(43),
         ]);
 
         $this->assertEquals(43, $employe->getAge());
